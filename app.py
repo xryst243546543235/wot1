@@ -1,13 +1,26 @@
 from flask import Flask, render_template
+from random import choice
 
 app = Flask(__name__)
+title = ['Flask', 'Как интересно', 'Ваши предложения', 'Химия', '']
+menu = [{'name': 'Главная', 'url': '/'}, {'name': 'Помощь', 'url': 'help'}, {'name': 'О приложении', 'url': 'about'}]
 
 
-@app.route('/')
 @app.route('/index/')
+@app.route('/')
 def hello():
     user = {'username': 'yURA'}
-    return render_template('index.html', user=user)
+    return render_template('index.html', user=user, title=choice(title), menu=menu)
+
+
+@app.route('/help')
+def help():
+    return render_template('help.html', title=title)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html', title=title)
 
 
 @app.route('/<int:id>')
@@ -18,11 +31,6 @@ def users(id):
 @app.route('/<name>')
 def people(name):
     return render_template('people.html', name=name)
-
-
-@app.route('/help/')
-def help():
-    return '<h1>Мы уже выехали </h1>'
 
 
 @app.route('/table/')
