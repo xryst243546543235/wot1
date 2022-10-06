@@ -15,12 +15,12 @@ def hello():
 
 @app.route('/help')
 def help():
-    return render_template('help.html', title=title)
+    return render_template('help.html', title='Помощь', menu=menu)
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html', title=title)
+    return render_template('about.html', title='IT CUB', menu=menu)
 
 
 @app.route('/<int:id>')
