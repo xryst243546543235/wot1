@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Flask, render_template, session, redirect, url_for, request
 from random import choice
 
@@ -31,9 +33,14 @@ def about():
 #     return f'<h1>Ваш порядковый номер {id} </h1>'
 
 
-@app.route('/profile/<name>')
-def profile(name):
-    return render_template('people.html', name=name)
+@app.route('/profile/<user>')
+def profile(user):
+    return render_template('people.html', name=user)
+
+
+# @app.route('/profile/<username>')
+# def profile(username):
+#     return f'hello {username}'
 
 
 @app.route('/table')
@@ -46,17 +53,38 @@ def page_not_found(error):
     return render_template('page404.html', title='Страница не найдена', menu=menu)
 
 
+app.permanent_session_lifetime = datetime.timedelta(seconds=10)
+
+
 @app.route('/login', methods=["POST", "GET"])
 def login():
     print(session)
-    if 'user_logged' in session:
 
-        return redirect(url_for('profile', username=session['user_logged']))
-    elif request.form['username'] == 'andrei' and request.form['password'] == '123':# and request.method == 'GET':
+    if 'user_logged' in session:
+        print(session['user_logged'])
+        return redirect(url_for('profile', user=session['user_logged']))
+    elif request.method == 'POST' and request.form['username'] == 'andrei' and request.form[
+        'password'] == '123':  # and request.method == 'GET':
         session['user_logged'] = request.form['username']
         print(session['user_logged'])
-        return redirect(url_for('profile', username=session['user_logged']))
+        return redirect(url_for('profile', user=session['user_logged']))
     return render_template('login.html', title="Авторизация")
+
+
+@app.route('/visits-counter')
+def visits():
+    session.permanent = True
+    if 'visits' in session:
+        session['visits'] = session.get('visits') + 1  # чтение и обновление данных сессии
+    else:
+        session['visits'] = 1  # настройка данных сессии
+    return "Total visits: {}".format(session.get('visits'))
+
+
+@app.route('/delete-visits')
+def delete_visits():
+    session.pop('visits', None)  # удаление данных о посещениях
+    return 'Visits deleted'
 
 
 if __name__ == '__main__':
