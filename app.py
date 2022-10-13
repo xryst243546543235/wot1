@@ -53,20 +53,20 @@ def page_not_found(error):
     return render_template('page404.html', title='Страница не найдена', menu=menu)
 
 
-app.permanent_session_lifetime = datetime.timedelta(seconds=10)
+app.permanent_session_lifetime = datetime.timedelta(seconds=60)
 
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
     print(session)
+    users = {'Gog': '111', 'VOV': '123', 'bob': '334'}
 
     if 'user_logged' in session:
         print(session['user_logged'])
         return redirect(url_for('profile', user=session['user_logged']))
-    elif request.method == 'POST' and request.form['username'] == 'andrei' and request.form[
-        'password'] == '123':  # and request.method == 'GET':
+    elif request.method == 'POST' and request.form['username'] in users and request.form['password'] in users[
+        request.form['username']]:
         session['user_logged'] = request.form['username']
-        print(session['user_logged'])
         return redirect(url_for('profile', user=session['user_logged']))
     return render_template('login.html', title="Авторизация")
 
