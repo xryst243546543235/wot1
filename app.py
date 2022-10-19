@@ -1,6 +1,6 @@
 import datetime
 
-from flask import Flask, render_template, session, redirect, url_for, request
+from flask import Flask, render_template, session, redirect, url_for, request, abort
 from random import choice
 
 app = Flask(__name__)
@@ -35,6 +35,8 @@ def about():
 
 @app.route('/profile/<user>')
 def profile(user):
+    if 'user_logged' not in session or session['user_logged'] != user:
+        abort(401)
     return render_template('people.html', name=user)
 
 
@@ -53,13 +55,18 @@ def page_not_found(error):
     return render_template('page404.html', title='Страница не найдена', menu=menu)
 
 
-app.permanent_session_lifetime = datetime.timedelta(seconds=60)
+@app.errorhandler(401)
+def profile_error(error):
+    return f"<h1>сначала авторизуйтесь </h1> {error}"
+
+
+app.permanent_session_lifetime = datetime.timedelta(seconds=160)
 
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
     print(session)
-    users = {'Gog': '111', 'VOV': '123', 'bob': '334'}
+    users = {'Gog': '111', 'VOV': '123', 'bob': '334', '1': '1'}
 
     if 'user_logged' in session:
         print(session['user_logged'])
@@ -85,6 +92,13 @@ def visits():
 def delete_visits():
     session.pop('visits', None)  # удаление данных о посещениях
     return 'Visits deleted'
+
+
+@app.route('/delete_exit')
+def delete_exit():
+    if session.get('user_logged', False):
+        del session['user_logged']
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
