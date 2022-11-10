@@ -1,17 +1,6 @@
 import sqlite3
 
-from app import app
-
-
-def connect_db():
-    conn = sqlite3.connect(app.config['DATABASE'])
-    conn.row_factory = sqlite3.Row
-    return conn
-
-
-def get_db():
-    '''соединение с БД, если оно еще не установленно'''
-    pass
+from app import connect_db, app
 
 
 def create_db():
@@ -38,8 +27,19 @@ class FlaskDataBase:
             return False
         return True
 
+    def dellmenu(self):
+        try:
+            self.__cur.execute("DELETE FROM mainmenu ")
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print('Ошибка удаления в меню БД  ' + str(e))
+            return False
+        return True
+
+
 if __name__ == '__main__':
     db = connect_db()
     dbase = FlaskDataBase(db)
-    print(dbase.addmenu('Главная', 'index'))
+    print(dbase.addmenu('Главная', '/index_bd'))
+    #print(dbase.dellmenu())
     print(create_db.__doc__)
