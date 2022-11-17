@@ -6,9 +6,8 @@ from random import choice
 
 from config import Config
 import os
-from pprint import pprint
 
-
+from fask_db_class import FlaskDataBase
 
 app = Flask(__name__)
 
@@ -19,12 +18,15 @@ app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flask.db')))
 # print(*app.config.items(), sep='\n')
 title = ['Flask', 'Как интересно', 'Ваши предложения', 'Химия', '']
 menu = [{'name': 'Главная', 'url': '/'}, {'name': 'Помощь', 'url': 'help'}, {'name': 'О приложении', 'url': 'about'},
-        {'name': 'Таблица', 'url': 'table'}, {'name': 'Авторизация', 'url': 'login'}]
+        {'name': 'Таблица', 'url': 'table'}, {'name': 'Авторизация', 'url': 'login'},
+        {'name': 'Главная БД', 'url': 'index_bd'}]
+
 
 def connect_db():
     conn = sqlite3.connect(app.config['DATABASE'])
     conn.row_factory = sqlite3.Row
     return conn
+
 
 def get_db():
     '''соединение с БД, если оно еще не установленно'''
@@ -40,7 +42,14 @@ def close_db(error):
         g.link_db.close()
 
 
-@app.route('/index/')
+@app.route('/index_bd')
+def index_bd():
+    db = get_db()
+    db = FlaskDataBase(db)
+    return render_template('index_bd.html', menu=[])
+
+
+@app.route('/index')
 @app.route('/')
 def hello():
     user = {'username': 'yURA'}
