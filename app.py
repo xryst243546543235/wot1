@@ -48,12 +48,12 @@ def index_db():
     db = get_db()
     db = FlaskDataBase(db)
     return render_template('index_db.html', menu=db.getmenu())
-
-@app.route('/db/addpost')
+@app.route('/db/add-post')
 def add_post():
     db = get_db()
     db = FlaskDataBase(db)
-    return render_template('index_db.html', menu=db.getmenu())
+    return render_template('addpost.html', menu=db.getmenu())
+
 
 
 @app.route('/index')
