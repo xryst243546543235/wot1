@@ -22,3 +22,13 @@ float:right;
 }
 ul.mainmenu a { color: #fdc073; text-decoration:none;}
 ul.mainmenu a:hover { color: #8785A2; }
+
+.flash {padding:10px;}
+.flash.success{
+border: 2px solid #21DB56;
+background: #AEFFC5;
+}
+.flash.error {
+border: 5px solid #FF4343;
+background: #FF9C9C;
+}

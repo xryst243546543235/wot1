@@ -1,8 +1,8 @@
-#C:\Users\r1212\AppData\Local\Yandex\YandexBrowser\User Data\Default\Network
+# C:\Users\r1212\AppData\Local\Yandex\YandexBrowser\User Data\Default\Network
 import datetime
 import sqlite3
 
-from flask import Flask, render_template, session, redirect, url_for, request, abort, g
+from flask import Flask, render_template, session, redirect, url_for, request, abort, g, flash
 from random import choice
 
 from config import Config
@@ -48,12 +48,23 @@ def index_db():
     db = get_db()
     db = FlaskDataBase(db)
     return render_template('index_db.html', menu=db.getmenu())
-@app.route('/db/add-post')
+
+
+@app.route('/db/add-post', methods=["POST", "GET"])
 def add_post():
     db = get_db()
     db = FlaskDataBase(db)
-    return render_template('addpost.html', menu=db.getmenu())
+    if request.method == "POST":
+        if len(request.form['name']) > 3 and 10 < len(request.form['post']) < 2 ** 20:
+            res = db.addPost(request.form['name'], request.form['post'], request.form['url'])
+            if not res :
+                flash('Ошибка добавления статьи', category='error')
+            else:
+                flash('Cтатья добавлена', category='success')
+        else:
+            flash('Ошибка добавления статьи', category='error')
 
+    return render_template('addpost.html', menu=db.getmenu())
 
 
 @app.route('/index')
