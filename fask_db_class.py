@@ -52,3 +52,25 @@ class FlaskDataBase:
             print('Ошибка добавления статьи в БД', str(e))
             return False
         return True
+
+    def getPosts(self):
+        try:
+            sql = ''' SELECT id, title, text, url FROM posts ORDER BY time DESC'''
+            self.__cur.execute(sql)
+            res = self.__cur.fetchall()
+            if res: return res
+        except sqlite3.Error as e:
+            print('Ошибка получения статьи из  БД', str(e))
+
+        return []
+
+    def getPost(self, alias):
+        try:
+            sql = ''' SELECT title, text FROM posts WHERE url LIKE ? LIMIT 1'''
+            self.__cur.execute(sql, (alias,))
+            res = self.__cur.fetchone()
+            if res: return res
+        except sqlite3.Error as e:
+            print('Ошибка получения статьи из  БД', str(e))
+
+        return (False, False)
