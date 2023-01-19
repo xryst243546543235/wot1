@@ -101,9 +101,7 @@ def hello():
 def help():
     return render_template('help.html', title='Помощь', menu=menu)
 
-@app.route('/help12')
-def help12():
-    return "render_template('help.html', title='Помощь', menu=menu)"
+
 
 @app.route('/about')
 def about():
