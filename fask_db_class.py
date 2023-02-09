@@ -69,7 +69,9 @@ class FlaskDataBase:
             sql = ''' SELECT title, text FROM posts WHERE url LIKE ? LIMIT 1'''
             self.__cur.execute(sql, (alias,))
             res = self.__cur.fetchone()
-            if res: return res
+            if res:
+                # base = url_for('static', filename=)
+                return res
         except sqlite3.Error as e:
             print('Ошибка получения статьи из  БД', str(e))
 
