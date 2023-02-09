@@ -7,7 +7,7 @@ from random import choice
 
 from config import Config
 import os
-import git
+#import git
 
 from fask_db_class import FlaskDataBase
 

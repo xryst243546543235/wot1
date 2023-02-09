@@ -1,6 +1,9 @@
 import math
+import re
 import sqlite3
 import time
+
+from flask import url_for
 
 
 class FlaskDataBase:
@@ -70,8 +73,10 @@ class FlaskDataBase:
             self.__cur.execute(sql, (alias,))
             res = self.__cur.fetchone()
             if res:
-                # base = url_for('static', filename=)
-                return res
+                base = url_for('static', filename='images_html')
+                text = re.sub(r"(?P<tag><img\s+[^>]*src=)(?P<quote>[\"'])(?P<url>.+?)(?P=quote)>",
+                              "\\g<tag>" + base + "/\\g<url>>", res['text'])
+                return (res['title'], text)
         except sqlite3.Error as e:
             print('Ошибка получения статьи из  БД', str(e))
 
