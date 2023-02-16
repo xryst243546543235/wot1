@@ -1,0 +1,175 @@
+@media print {
+	p {
+		font-size:75%!important;
+	}
+	.header-holder, offcanvas, 
+	#breadcrumbs,
+	.tour_tabs img,
+	#block-disqus-disqus-comments,
+	#tour_analogs,
+	#tab_2,
+	#tab_3,
+	#tab_4,
+	#top,
+	#sidebar,
+	.tabs,
+	.tour_bar,
+	.toggle-canvas,
+	.tour_switch_tabs,
+	.home-subscribe,
+	.field-name-field-social-butt,
+	.footer {
+		display:none!important;
+		visibility:hidden!important;
+	}
+	.tour_tabs {
+		padding-top:0!important;
+	}
+	.tour_image {
+		float: none!important;
+		width: 100%!important;
+		margin:40px 0 -200px 0;
+	}
+	.node-type-kartochka-tura .tour_image img {
+		width: 680px!important;
+		height: 360px!important;
+		position:relative!important;
+		left:320px!important;
+		top:0!important;
+	}
+	.tour_right {
+		float:none!important;
+		width: 100%!important;
+		left:0!important;
+		right:0!important;
+	}
+	.tour_right * {
+		color:#000!important;
+		text-align:left!important;
+	}
+	.tour_right .field-name-field-departure-time {
+		border:none!important;
+	}
+	
+	.printed {
+		display:block!important;
+	}
+	.print-bar * {
+		font-size:16px!important;
+		text-transform:none!important;
+		/* font-weight:normal!important; */
+		
+	}
+	.print-bar i {
+		display:none!important;
+	}
+	#content, 
+	#page_title, 
+	#block-system-main {
+		padding-left:0!important;
+		padding-right:0!important;
+	}
+	#block-system-main * {
+		font-size:13px!important;
+	}
+	#block-system-main p+p {
+		    margin: 10px 0 !important;
+	}
+	.print-top div {
+		margin-bottom:10px;
+	}
+	.print-top {
+		margin-bottom:20px;
+	}
+	
+	.print-included .field-label {
+		margin:20px 0 20px 0!important;
+		font-size:24px;
+	}
+	.print-included li {
+		margin-bottom: 5px;
+		line-height: 140%;
+		font-size: 16px;
+		list-style: square outside;
+		margin-left: 20px;
+	}
+
+	/* Правка оформления печати страницы тура >>> */
+	.node-type-kartochka-tura .print-top,
+	.node-type-kartochka-tura .tabs,
+	.node-type-kartochka-tura #breadcrumbs,
+	.node-type-kartochka-tura #page_title,
+	.node-type-kartochka-tura #sidebar,
+	.node-type-kartochka-tura #block-system-main .content .tour_top,
+	.node-type-kartochka-tura #block-system-main .content #tour-bar,
+	.node-type-kartochka-tura #block-system-main .content #tour-map,
+	.node-type-kartochka-tura #block-system-main .content #tour-bar .field-date,
+	.node-type-kartochka-tura #block-system-main .content #questions,
+	.node-type-kartochka-tura #block-system-main .content #tour-bar-bottom-wrapper,
+	.node-type-kartochka-tura #block-system-main .content #tour_analogs,
+	.node-type-kartochka-tura #block-system-main .content #rating-block,
+	.node-type-kartochka-tura .home-logos,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-why-go,
+	/* .node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-tour-price-exclude, */
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-international-flights,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-arrival,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-departure,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-placement,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-meal,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-seasonality,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-requirements-participants,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-advantages,
+	.node-type-kartochka-tura iframe,
+	.fb-comments,
+	#jivo-iframe-container,
+	jdiv {
+		display: none !important;
+	}
+
+	.node-type-kartochka-tura #block-system-main .content .print-included,
+	.node-type-kartochka-tura #block-system-main .content .print-included .field-name-field-tour-price-include {
+		margin: 0px !important;
+		padding: 0px !important;
+	}
+
+	.node-type-kartochka-tura #block-system-main .content .field-name-body,
+	.node-type-kartochka-tura #block-system-main .content .tour_tabs .field {
+		margin-bottom: 0px !important;
+	}
+
+	.node-type-kartochka-tura .print-bar {
+		margin-bottom: 30px;
+	}
+
+	.node-type-kartochka-tura .print-bar .perform-info {
+		margin-bottom: 10px;
+	}
+
+	.node-type-kartochka-tura .print-bar .perform-info .print-label,
+	.node-type-kartochka-tura .print-bar #print-tourleader .tourleadername_intourcard {
+		font-weight: bold !important;
+	}
+
+	.node-type-kartochka-tura .print-bar #print-tourleader .views-row,
+	.node-type-kartochka-tura .print-bar .field-name-field-departure-time,
+	.node-type-kartochka-tura .print-bar .field-name-field-departure-time .field-items {
+		display: inline-block;
+	}
+
+	.node-type-kartochka-tura .field-name-field-departure-time .field-item+.field-item {
+		margin-left: 15px !important;
+	}
+
+	.node-type-kartochka-tura #main > .holder {
+		padding-top: 10px !important;
+	}
+
+	.node-type-kartochka-tura .print-bar .print-contact-info {
+		margin-bottom: 30px;
+	}
+	
+	.node-type-kartochka-tura .print-bar .print-contact-info > div {
+		padding: 2px 0px;
+	}
+	/* <<< Правка оформления печати страницы тура */
+}

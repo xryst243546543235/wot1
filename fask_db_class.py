@@ -74,9 +74,10 @@ class FlaskDataBase:
             res = self.__cur.fetchone()
             print(res['text'])
             if res:
-                base = url_for('static', filename='images_html')
-                text = re.sub(r"(?P<tag><img\s+[^>]*src=)(?P<quote>[\"'])(?P<url>.+?)(?P=quote)>",
-                              "\\g<tag>" + base + "/\\g<url>>", res['text'])
+                # base = url_for('static', filename='images_html')
+                # text = re.sub(r"(?P<tag><img\s+[^>]*src=)(?P<quote>[\"'])(?P<url>.+?)(?P=quote)>",
+                #               "\\g<tag>" + base + "/\\g<url>>", res['text'])
+                text = res['text']
 
                 return (res['title'], text)
         except sqlite3.Error as e:

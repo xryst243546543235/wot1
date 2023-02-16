@@ -1,0 +1,70 @@
+jQuery(window).load(function(){
+	findPrices();
+});
+
+function findPrices() {
+	var tempVar = jQuery(document).find(".category_tour").find(".info").find(".price").find(".money");
+	var pricePage = "category";
+
+	if(!tempVar.length > 0) {
+		var tempVar = jQuery(document).find(".field-price").find(".price");
+		var pricePage = "tour";
+	}
+
+	if(tempVar.length > 0) {
+		var priceConvertRequest = jQuery.ajax({
+			type: "POST",
+			url: "/prices-in-rubles",
+			data: {currencies: "USD,EUR"}
+		});
+
+		priceConvertRequest.done(function(exchangeRates){
+			if(exchangeRates) {
+				if(exchangeRates != "null") {
+					jQuery(tempVar).each(function(ind, val){
+						var priceContent = jQuery.trim(jQuery(this).text());
+						if(priceContent.indexOf("€") > -1) {
+							convertPrices(this, priceContent, exchangeRates.EUR, pricePage);
+						}
+						else if(priceContent.indexOf("$") > -1) {
+							convertPrices(this, priceContent, exchangeRates.USD, pricePage);
+						}
+					});
+				}
+			}
+		});
+	}
+}
+
+function convertPrices(elem, priceContent, exchangeRate, pricePage) {
+	priceContent = priceContent.replace(/\s/g, "");
+	var amount = priceContent.match(/\d+(?:(?:\.|\,)\d+)*/i)[0];
+	amount = amount.replace(/\,/g, ".");
+
+	if(jQuery.isNumeric(amount) && jQuery.isNumeric(exchangeRate)) {
+		var amountFloat = parseFloat(amount);
+		var exchangeRateFloat = parseFloat(exchangeRate);
+
+		var priceInRubles = Math.ceil(amountFloat * exchangeRateFloat);
+
+		switch(pricePage) {
+			case "category": {
+				jQuery(elem).parent(".price").append("<div class=\"money converted-money\">" + addThousandsSeparator(priceInRubles.toString()) + "&nbsp;руб</div>");
+
+				break;
+			}
+
+			case "tour": {
+				jQuery(elem).append("&nbsp;(" + addThousandsSeparator(priceInRubles.toString()) + "&nbsp;руб)");
+
+				break;
+			}
+
+			default: {}
+		}
+	}
+}
+
+function addThousandsSeparator(val) {
+    return val.replace(/(\d)(?=(\d{3})+([^\d]|$))/g, "$1 ");
+}

@@ -60,7 +60,11 @@ def index_db():
     db = get_db()
     db = FlaskDataBase(db)
 
-    return render_template('index_db.html', menu=db.getmenu(), posts=db.getPosts())
+    if 'user_logged' in session and  session['user_logged'] == '1':
+        print('ree')
+        return render_template('index_db_admin.html', menu=db.getmenu(), posts=db.getPosts())
+    else:
+        return render_template('index_db.html', menu=db.getmenu(), posts=db.getPosts())
 
 
 @app.route('/db/<alias>')
@@ -117,7 +121,7 @@ def about():
 def profile(user):
     if 'user_logged' not in session or session['user_logged'] != user:
         abort(401)
-    return render_template('people.html', name=user)
+    return render_template('people.html', name=user, menu=menu)
 
 
 # @app.route('/profile/<username>')

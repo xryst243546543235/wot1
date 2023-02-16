@@ -1,0 +1,110 @@
+// window.addEventListener('load', moveSearchButton);
+window.addEventListener('load', searchExec);
+window.addEventListener('resize', moveSearchButton);
+
+// Подписка на рассылку Unisender >>>
+window.addEventListener('load', addSubmitEventListenersToSubscribeForms);
+// <<< Подписка на рассылку Unisender
+
+function moveSearchButton() {
+	let searchButton = document.getElementById('search-button');
+	
+	if(window.matchMedia('(min-width: 992px)').matches) {
+		if(searchButton) {
+			let levelParent = jQuery('.header-holder #menu');
+			let searchButtonParent = searchButton.parentElement;
+			if(searchButtonParent && searchButtonParent.id != 'menu') {
+				jQuery(searchButton).remove();
+				jQuery(searchButton).prependTo(levelParent);
+			}
+		}
+	}
+	else if(window.matchMedia('(max-width: 991px)').matches && window.matchMedia('(min-width: 768px)').matches) {
+		if(searchButton) {
+			let levelParent = jQuery('.header-holder #block-menu-menu-bottom-menu .menu');
+			let searchButtonParent = searchButton.closest('#block-menu-menu-bottom-menu');
+			if(!searchButtonParent) {
+				jQuery(searchButton).remove();
+				jQuery(searchButton).prependTo(levelParent);
+			}
+		}
+	}
+	else if(window.matchMedia('(max-width: 767px)').matches) {
+		if(searchButton) {
+			let levelParent = jQuery('#mobile-search-button-container');
+			let searchButtonParent = searchButton.parentElement;
+			if(searchButtonParent && searchButtonParent.id != 'mobile-search-button-container') {
+				jQuery(searchButton).remove();
+        jQuery(levelParent).empty();
+				jQuery(searchButton).prependTo(levelParent);
+			}
+		}
+	}
+}
+
+function searchExec() {
+	let searchForm = document.getElementById('search-block-form');
+	let searchFormSubmitButton = searchForm.querySelector('#edit-submit');
+	
+	searchFormSubmitButton.addEventListener('click', function (event) {
+		event.preventDefault();
+		
+		let searchFormTextInput = searchForm.querySelector('.form-text');
+		let searchFormTextInputValue = searchFormTextInput.value.trim();
+		let searchRunUrl = '/search/node/' + searchFormTextInputValue;
+		
+		window.location.href = searchRunUrl;
+	});
+}
+
+// Подписка на рассылку Unisender >>>
+function addSubmitEventListenersToSubscribeForms() {
+  let webformsId = [
+    'webform-client-form-1201',
+    'webform-client-form-282'
+  ];
+
+  webformsId.forEach((webformId) => {
+    let webformsSelector = `[id^="${webformId}"]`;
+    let webforms = document.querySelectorAll(webformsSelector);
+    webforms.forEach((webform) => {
+      webform.addEventListener('submit', subscribeUnisenderProcess);
+    });
+  });
+}
+
+function subscribeUnisenderProcess(event) {
+  event.preventDefault();
+
+  let url = '/subscribe_unisender';
+  let unisenderUrl = 'https://api.unisender.com/ru/api/subscribe?format=json';
+  let apiKey = '5zinjpfbfahei7pgwexp4ntirn7i63j59u84g7ne';
+  let listId = '1084228';
+  let email = this.querySelector('input[name="submitted[email]"]').value;
+  let userName = this.querySelector('input[name="submitted[name]"]').value;
+
+  fetch(url, {
+    method: 'POST',
+    headers: {'Content-type': 'application/x-www-form-urlencoded'},
+    body: `unisender=${unisenderUrl}&api_key=${apiKey}&list_ids=${listId}&fields[email]=${email}&fields[name]=${userName}`
+  })
+
+  this.removeEventListener('submit', subscribeUnisenderProcess);
+  this.submit();
+}
+// <<< Подписка на рассылку Unisender
+
+// Сворачивание фильтр на мобильных экранах >>>
+jQuery(document).ready(function () {
+  jQuery('#block-views-exp-tour-filter-page .title-mobile').click(function () {
+    if (jQuery('#block-views-exp-tour-filter-page .content').css('display') === 'none') {
+      jQuery('#block-views-exp-tour-filter-page .content').show(100);
+      jQuery('#block-views-exp-tour-filter-page').css('padding-bottom', '15px');
+    }
+    else {
+      jQuery('#block-views-exp-tour-filter-page .content').hide(100);
+      jQuery('#block-views-exp-tour-filter-page').css('padding-bottom', '5px');
+    }
+  });
+});
+// <<< Сворачивание фильтр на мобильных экранах

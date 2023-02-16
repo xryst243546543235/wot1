@@ -1,0 +1,33 @@
+let searchButton = document.getElementById('search-button');
+	
+if(window.matchMedia('(min-width: 992px)').matches) {
+  if(searchButton) {
+    let levelParent = jQuery('.header-holder #menu');
+    let searchButtonParent = searchButton.parentElement;
+    if(searchButtonParent && searchButtonParent.id != 'menu') {
+      jQuery(searchButton).remove();
+      jQuery(searchButton).prependTo(levelParent);
+    }
+  }
+}
+else if(window.matchMedia('(max-width: 991px)').matches && window.matchMedia('(min-width: 768px)').matches) {
+  if(searchButton) {
+    let levelParent = jQuery('.header-holder #block-menu-menu-bottom-menu .menu');
+    let searchButtonParent = searchButton.closest('#block-menu-menu-bottom-menu');
+    if(!searchButtonParent) {
+      jQuery(searchButton).remove();
+      jQuery(searchButton).prependTo(levelParent);
+    }
+  }
+}
+else if(window.matchMedia('(max-width: 767px)').matches) {
+  if(searchButton) {
+    let levelParent = jQuery('#mobile-search-button-container');
+    let searchButtonParent = searchButton.parentElement;
+    if(searchButtonParent && searchButtonParent.id != 'mobile-search-button-container') {
+      jQuery(searchButton).remove();
+      jQuery(levelParent).empty();
+      jQuery(searchButton).prependTo(levelParent);
+    }
+  }
+}

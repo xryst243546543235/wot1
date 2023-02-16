@@ -1,0 +1,96 @@
+(function(){
+    var onLoadCallbackOldCallback  = window.jivo_onLoadCallback;
+    var onIntroductionOldCallback  = window.jivo_onIntroduction;
+    var intervalIdCheckIntroduction;
+
+    var getDefaultContactData = function() {
+        var contactInfo = jivo_api.getContactInfo();
+        if (contactInfo.name === undefined) {
+            contactInfo.name = contactInfo.client_name;
+        }
+
+        return contactInfo;
+    };
+
+    var getDefaultLeadData = function() {
+        var data = {
+            leadName: 'JivoSite Lead'
+        };
+        var contactData = getDefaultContactData();
+
+        for (var attrNameContactData in contactData) {
+            if (contactData.hasOwnProperty(attrNameContactData)) {
+                data[attrNameContactData] = contactData[attrNameContactData];
+            }
+        }
+
+        return data;
+    };
+
+    var sendLead = function(data) {
+        if (window.roistatWithJivoSiteIntegrationWebHook === undefined) {
+            window.roistatGoal.reach(data);
+            return;
+        }
+        data.roistat = roistatGetCookie('roistat_visit');
+        data.type = 'free';
+        var url = window.roistatWithJivoSiteIntegrationWebHook;
+        for (var name in data) {
+            if (data.hasOwnProperty(name) && data[name] !== null) {
+                var encodedValue = encodeURIComponent(data[name]);
+                url = url + `&${name}=${encodedValue}`;
+            }
+        }
+        document.createElement('img').src = url;
+    };
+
+    var ourOnLoadCallback = function() {
+        jivo_api.setCustomData([
+            {
+                content : 'Roistat: ' + roistatGetCookie('roistat_visit')
+            }
+        ]);
+
+        if (jivo_api.chatMode() === 'online') {
+            console.log('operator is online');
+            return;
+        }
+
+        console.log('operator is offline');
+        var data = getDefaultLeadData();
+        if (!isDataFilled(data)) {
+            intervalIdCheckIntroduction = setInterval(sendLeadWhenUserIntroduced, 1000);
+        }
+    };
+
+    var ourOnIntroduction = function() {
+        var data = getDefaultLeadData();
+        sendLead(data);
+    };
+
+    var sendLeadWhenUserIntroduced = function() {
+        var data = getDefaultLeadData();
+        if (isDataFilled(data)) {
+            sendLead(data);
+            clearInterval(intervalIdCheckIntroduction);
+        }
+    };
+
+    var isDataFilled = function(data) {
+        return data.email !== null || data.phone !== null;
+    };
+
+    window.jivo_onLoadCallback = function() {
+        if (onLoadCallbackOldCallback) {
+            onLoadCallbackOldCallback();
+        }
+        ourOnLoadCallback();
+    };
+
+    window.jivo_onIntroduction = function () {
+        if (onIntroductionOldCallback) {
+            onIntroductionOldCallback();
+        }
+        ourOnIntroduction();
+    };
+})();
