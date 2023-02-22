@@ -55,13 +55,19 @@ def close_db(error):
         g.link_db.close()
 
 
-@app.route('/db/index_db')
+@app.route('/db/index_db', methods=["POST", "GET"])
 def index_db():
     db = get_db()
     db = FlaskDataBase(db)
 
     if 'user_logged' in session and  session['user_logged'] == '1':
         print('ree')
+        if request.method == "POST":
+            res = db.dellPost(request.form['number'])
+            if not res:
+                flash('Ошибка удаления статьи', category='error')
+            else:
+                flash('Cтатья удалена', category='success')
         return render_template('index_db_admin.html', menu=db.getmenu(), posts=db.getPosts())
     else:
         return render_template('index_db.html', menu=db.getmenu(), posts=db.getPosts())

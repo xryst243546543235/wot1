@@ -18,10 +18,11 @@ def create_db():
 
 
 if __name__ == '__main__':
-    # db = connect_db()
-    # dbase = FlaskDataBase(db)
+    db = connect_db()
+    dbase = FlaskDataBase(db)
+    print(dbase.dellPost('4'))
     # print(dbase.addmenu('Главная', 'index_db'))
     # print(dbase.addmenu('Добавить статью', 'add_post'))
     # # print(dbase.dellmenu())
     # print(create_db.__doc__)
-    create_db()
+    # create_db()

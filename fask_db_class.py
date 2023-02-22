@@ -84,3 +84,14 @@ class FlaskDataBase:
             print('Ошибка получения статьи из  БД', str(e))
 
         return (False, False)
+    def dellPost(self, id):
+        try:
+            #self.__cur.execute(f"DELETE FROM mainmenu WHERE id=={id}")
+            #self.__cur.execute( "DELETE FROM mainmenu WHERE id LIKE ? ", (id,))
+            self.__cur.execute(f"DELETE FROM posts WHERE id=={id}")
+            self.__db.commit()
+        except sqlite3.Error as e:
+            print('Ошибка удаления статьи БД  ' + str(e))
+            return False
+        return True
+
