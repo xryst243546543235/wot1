@@ -2,12 +2,12 @@
 import datetime
 import sqlite3
 
-from flask import Flask, render_template, session, redirect, url_for, request, abort, g, flash
+from flask import Flask, render_template, session, redirect, url_for, request, abort, g, flash, make_response
 from random import choice
 
 from config import Config
 import os
-#import git
+import git
 
 from fask_db_class import FlaskDataBase
 
@@ -55,6 +55,8 @@ def close_db(error):
         g.link_db.close()
 
 
+
+
 @app.route('/db/index_db', methods=["POST", "GET"])
 def index_db():
     db = get_db()
@@ -98,6 +100,17 @@ def add_post():
             flash('Ошибка добавления статьи', category='error')
 
     return render_template('addpost.html', menu=db.getmenu())
+
+
+@app.route("/test")
+def test():
+    user = {'username': 'yURA'}
+    content =  render_template('index.html', user=user, title=choice(title), menu=menu)
+    res = make_response(content)
+    res.headers['Content-Type'] = 'text/plain' #'multipart/from-data'
+    res.headers['Server'] = 'CUBFlask'
+    return res
+
 
 
 @app.route('/index')
