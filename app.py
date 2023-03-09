@@ -111,7 +111,10 @@ def test():
     res.headers['Server'] = 'CUBFlask'
     return res
 
-
+@app.route('/test10')
+def test10():
+    user = {'username': 'yURA'}
+    return render_template('index.html', user=user, title=choice(title), menu=menu)
 
 @app.route('/index')
 @app.route('/')
