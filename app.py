@@ -18,10 +18,8 @@ app.config.from_object(Config)
 # print(*app.config.items(), sep='\n')
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flask.db')))
 # print(*app.config.items(), sep='\n')
-title = ['Flask', 'Как интересно', 'Ваши предложения', 'Химия', '']
-menu = [{'name': 'Главная', 'url': '/'}, {'name': 'Помощь', 'url': 'help'}, {'name': 'О приложении', 'url': 'about'},
-        {'name': 'Таблица', 'url': 'table'}, {'name': 'Авторизация', 'url': 'login'},
-        {'name': 'Главная БД', 'url': '/db/index_db'}]
+title = ['']
+menu = [{'name': 'Почему мы должны беречь природу', 'url': '/'}, {'name': 'Помощь', 'url': 'help'}, {'name': 'О приложении', 'url': 'about'}]
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
