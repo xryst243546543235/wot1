@@ -19,7 +19,7 @@ app.config.from_object(Config)
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flask.db')))
 # print(*app.config.items(), sep='\n')
 title = ['']
-menu = [{'name': 'Почему мы должны беречь природу', 'url': '/'}, {'name': 'Помощь', 'url': 'help'}, {'name': 'О приложении', 'url': 'about'}]
+menu = [{'name': 'почему', 'url': '/'}, {'name': 'как помочь', 'url': 'help'}, {'name': 'экономия', 'url': 'about'}]
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
@@ -123,15 +123,15 @@ def hello():
 
 @app.route('/help')
 def help():
-    return render_template('help.html', title='Помощь', menu=menu)
+    return render_template('help.html', menu=menu)
 
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html', title='IT CUB', menu=menu)
+    return render_template('about.html', title='', menu=menu)
 
-
+#dfghjkjhgfds
 # @app.route('/<int:id>')
 # def users(id):
 #     return f'<h1>Ваш порядковый номер {id} </h1>'

@@ -1,12 +1,43 @@
+body{
+	background-color: #A9D6AD;
+}
+#box {
+width: 300px; /* ширина блока*/
+height: 200px; /* высота блока*/
+border: 0px dotted black; /* рамка блока*/
+background-color: #ccc; /* фон блока*/
+padding:0px; /* отступы внутри блока*/
+position:relative;
+	right:100;
+	top:100;
+}
+.object {
+    position: absolute;
+}
+.youtube-icon:hover {
+    fill: red;
+}
+.twitter-icon:hover {
+    fill: rgb(145, 8, 199);
+}
+#bg span{
+	background-color: #C1AB44;
+}
+#rr span{
+	background-color: #C1AB44;
+}
 html, body {margin:0;
 padding: 0;
 }
+p.ver{font-size:40px}
+p.one{font-size:30px}
+p.pop{font-size:25px}
 form { padding:20px; }
 h1 {padding:10px;}
 ul.mainmenu {
 list-style:none;
 background: #3F4137;
-height:110px;
+height:70px;
 margin:0px;
 padding:0px;
 color:#fdc073;
@@ -21,7 +52,7 @@ ul.mainmenu li.last {
 float:right;
 }
 ul.mainmenu a { color: #fdc073; text-decoration:none;}
-ul.mainmenu a:hover { color: #8785A2; }
+ul.mainmenu a:hover { color: #A9D6AD; }
 
 .flash {padding:10px;}
 .flash.success{
@@ -48,7 +79,7 @@ border: 1px solid #eee;
 ul.list-posts .title {
 margin: 0;
 padding: 5px;
-background: #eee;
+background: red;
 }
 ul.list-posts .annonce {
 margin: 0;
