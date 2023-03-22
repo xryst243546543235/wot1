@@ -1,5 +1,5 @@
 body{
-	background-color: #A9D6AD;
+	background-color: #F9EBE0;
 }
 #box {
 width: 300px; /* ширина блока*/
@@ -21,10 +21,14 @@ position:relative;
     fill: rgb(145, 8, 199);
 }
 #bg span{
-	background-color: #C1AB44;
+	background-color: #b7edc0;
+	padding: 10px;
+	border-radius: 10px;
 }
 #rr span{
-	background-color: #C1AB44;
+	background-color: #b7edc0;
+	padding: 10px;
+	border-radius: 10px;
 }
 html, body {margin:0;
 padding: 0;

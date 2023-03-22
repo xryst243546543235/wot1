@@ -12,14 +12,14 @@ import git
 from fask_db_class import FlaskDataBase
 
 app = Flask(__name__)
-
+#fghgfdsdfgngfd
 # app.config['SECRET_KEY'] = 'dhme;kghjanrkael/jgbuilarelkjmgbipuehjmghiotrkjhtoikle'
 app.config.from_object(Config)
 # print(*app.config.items(), sep='\n')
 app.config.update(dict(DATABASE=os.path.join(app.root_path, 'flask.db')))
 # print(*app.config.items(), sep='\n')
 title = ['']
-menu = [{'name': 'почему', 'url': '/'}, {'name': 'как помочь', 'url': 'help'}, {'name': 'экономия', 'url': 'about'}]
+menu = [{'name': 'Причины, последствия вымирания животных', 'url': '/'}, {'name': 'Как помочь бездомным животным', 'url': 'help'}, {'name': 'Как  экономить энергию.', 'url': 'about'}]
 
 @app.route('/update_server', methods=['POST'])
 def webhook():
